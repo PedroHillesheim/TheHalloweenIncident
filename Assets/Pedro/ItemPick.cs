@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ItemPick : MonoBehaviour
 {
-    public float pickupRange = 1.5f; // distância de coleta
+    public float pickupRange = 1.5f;
 
     private Transform player;
     private ItemManager manager;
@@ -14,8 +14,12 @@ public class ItemPick : MonoBehaviour
         if (playerObj != null)
             player = playerObj.transform;
 
-        // Acha o gerenciador de itens na cena
-        manager = FindObjectOfType<ItemManager>();
+        // Acha o gerenciador
+        manager = FindFirstObjectByType(typeof(ItemManager)) as ItemManager;
+
+        // Se encontrou o gerenciador, registra o item nele
+        if (manager != null)
+            manager.RegisterItem();
     }
 
     void Update()
@@ -36,11 +40,10 @@ public class ItemPick : MonoBehaviour
         if (manager != null)
             manager.AddItem();
 
-        // Destrói o item
+        // Destroi o item
         Destroy(gameObject);
     }
 
-    // Gizmo pra ver o alcance no editor
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;

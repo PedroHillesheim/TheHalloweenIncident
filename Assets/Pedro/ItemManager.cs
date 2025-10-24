@@ -1,24 +1,26 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
-    public TMP_Text itemCounterText;    // Texto que mostra quantos itens foram coletados
-    public GameObject victoryScreen;    // Tela de vitória
+    public TMP_Text itemCounterText;
+    public GameObject victoryPanel;
 
-    private int totalItems;
-    private int collectedItems;
+    private int totalItems = 0;
+    private int collectedItems = 0;
 
     void Start()
     {
-        // Conta quantos itens existem na cena (todos com o script ItemPickup)
-        totalItems = FindObjectsOfType<ItemPick>().Length;
-        collectedItems = 0;
+        if (victoryPanel != null)
+            victoryPanel.SetActive(false);
 
         UpdateUI();
+    }
 
-        if (victoryScreen != null)
-            victoryScreen.SetActive(false); // Esconde a tela no início
+    public void RegisterItem()
+    {
+        totalItems++;
+        UpdateUI();
     }
 
     public void AddItem()
@@ -26,10 +28,11 @@ public class ItemManager : MonoBehaviour
         collectedItems++;
         UpdateUI();
 
-        // Verifica se pegou tudo
-        if (collectedItems >= totalItems)
+        if (collectedItems >= totalItems && totalItems > 0)
         {
-            ShowVictoryScreen();
+            Debug.Log("VitÃ³ria!");
+            if (victoryPanel != null)
+                victoryPanel.SetActive(true);
         }
     }
 
@@ -37,11 +40,5 @@ public class ItemManager : MonoBehaviour
     {
         if (itemCounterText != null)
             itemCounterText.text = $"Itens: {collectedItems}/{totalItems}";
-    }
-
-    void ShowVictoryScreen()
-    {
-        if (victoryScreen != null)
-            victoryScreen.SetActive(true);
     }
 }
