@@ -64,11 +64,7 @@ public class Movimentação : MonoBehaviour
         // Suaviza a aceleração
         currentVelocity = Vector2.Lerp(currentVelocity, targetVelocity, acceleration * Time.deltaTime);
 
-        // Atualiza stamina
-        UpdateStamina();
-
-        // Mostra stamina sem casas decimais
-        Debug.Log("Stamina: " + Mathf.RoundToInt(currentStamina));
+        UpdateStamina();;
     }
 
     void FixedUpdate()

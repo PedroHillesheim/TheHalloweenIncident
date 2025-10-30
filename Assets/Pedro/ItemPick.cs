@@ -19,7 +19,7 @@ public class ItemPick : MonoBehaviour
 
         // Se encontrou o gerenciador, registra o item nele
         if (manager != null)
-            manager.RegisterItem();
+            manager.AddItem();
     }
 
     void Update()

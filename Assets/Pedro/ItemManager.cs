@@ -1,26 +1,25 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ItemManager : MonoBehaviour
 {
-    public TMP_Text itemCounterText;
-    public GameObject victoryPanel;
+    public int totalItems = 0;
+    public int collectedItems = 0;
 
-    private int totalItems = 0;
-    private int collectedItems = 0;
+    [Header("Referências")]
+    public UnityEvent victoryPanel;
+    public TMP_Text itemCountText;
+
+    private bool victoryAchieved = false;
 
     void Start()
     {
-        if (victoryPanel != null)
-            victoryPanel.SetActive(false);
-
-        UpdateUI();
-    }
-
-    public void RegisterItem()
-    {
-        totalItems++;
-        UpdateUI();
+        collectedItems = 0;
+        if (Time.timeScale == 0f)
+        {
+            Time.timeScale = 1f;
+        }
     }
 
     public void AddItem()
@@ -28,17 +27,26 @@ public class ItemManager : MonoBehaviour
         collectedItems++;
         UpdateUI();
 
-        if (collectedItems >= totalItems && totalItems > 0)
-        {
-            Debug.Log("Vitória!");
-            if (victoryPanel != null)
-                victoryPanel.SetActive(true);
-        }
+        if (collectedItems >= totalItems)
+            WinGame();
     }
 
     void UpdateUI()
     {
-        if (itemCounterText != null)
-            itemCounterText.text = $"Itens: {collectedItems}/{totalItems}";
+        if (itemCountText != null)
+            itemCountText.text = "Itens: " + collectedItems + " / " + totalItems;
+    }
+
+    void WinGame()
+    {
+        if (victoryAchieved) return;
+        victoryAchieved = true;
+
+        // Ativa a tela de vitória
+        if (collectedItems >= totalItems)
+        {
+            victoryPanel.Invoke();
+        }    
+        Time.timeScale = 0f;
     }
 }

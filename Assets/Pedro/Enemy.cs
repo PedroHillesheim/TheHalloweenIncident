@@ -98,8 +98,6 @@ public class Enemy : MonoBehaviour
         playerDead = true;
 
         Debug.Log("Inimigo atacou o jogador! GAME OVER!");
-
-        // Notifica o gerenciador de Game Over
         GameOverManager.Instance.ShowGameOver();
     }
 
