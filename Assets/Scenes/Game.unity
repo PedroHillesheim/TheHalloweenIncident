@@ -343,7 +343,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 77.33, y: 199.99998}
+  m_AnchoredPosition: {x: 74, y: 199.99998}
   m_SizeDelta: {x: 927.39, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &206202287
@@ -1567,10 +1567,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56b8aab4baa025f468df81edf9d5d197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemManager
-  totalItems: 0
+  totalItems: 4
   collectedItems: 0
-  victoryPanel: {fileID: 1880324182}
-  itemCountText: {fileID: 0}
+  victoryPanel:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1880324182}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  itemCountText: {fileID: 206202287}
 --- !u!4 &1314350334
 Transform:
   m_ObjectHideFlags: 0
