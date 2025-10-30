@@ -39,10 +39,6 @@ public class ItemManager : MonoBehaviour
 
     void WinGame()
     {
-        if (victoryAchieved) return;
-        victoryAchieved = true;
-
-        // Ativa a tela de vitória
         if (collectedItems >= totalItems)
         {
             victoryPanel.Invoke();
