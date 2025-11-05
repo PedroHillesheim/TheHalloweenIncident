@@ -11,14 +11,19 @@ public class ItemManager : MonoBehaviour
     public UnityEvent victoryPanel;
     public TMP_Text itemCountText;
 
-    private bool victoryAchieved = false;
-
     void Start()
     {
         collectedItems = 0;
         if (Time.timeScale == 0f)
         {
             Time.timeScale = 1f;
+        }
+    }
+    private void Update()
+    {
+        if (itemCountText != null)
+        {
+            itemCountText.text = "Itens: " + collectedItems + " / " + totalItems;
         }
     }
 

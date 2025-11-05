@@ -16,10 +16,6 @@ public class ItemPick : MonoBehaviour
 
         // Acha o gerenciador
         manager = FindFirstObjectByType(typeof(ItemManager)) as ItemManager;
-
-        // Se encontrou o gerenciador, registra o item nele
-        if (manager != null)
-            manager.AddItem();
     }
 
     void Update()
