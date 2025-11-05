@@ -7,47 +7,28 @@ public class ItemManager : MonoBehaviour
     public int totalItems = 0;
     public int collectedItems = 0;
 
-    [Header("Referências")]
-    public UnityEvent victoryPanel;
+    [Header("UI")]
     public TMP_Text itemCountText;
 
     void Start()
     {
         collectedItems = 0;
+        UpdateUI();
+
+        // Garante que o jogo esteja rodando
         if (Time.timeScale == 0f)
-        {
             Time.timeScale = 1f;
-        }
-    }
-    private void Update()
-    {
-        if (itemCountText != null)
-        {
-            itemCountText.text = "Itens: " + collectedItems + " / " + totalItems;
-        }
     }
 
     public void AddItem()
     {
         collectedItems++;
         UpdateUI();
-
-        if (collectedItems >= totalItems)
-            WinGame();
     }
 
     void UpdateUI()
     {
         if (itemCountText != null)
             itemCountText.text = "Itens: " + collectedItems + " / " + totalItems;
-    }
-
-    void WinGame()
-    {
-        if (collectedItems >= totalItems)
-        {
-            victoryPanel.Invoke();
-        }    
-        Time.timeScale = 0f;
     }
 }
