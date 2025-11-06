@@ -6,16 +6,13 @@ public class ItemPick : MonoBehaviour
 
     private Transform player;
     private ItemManager manager;
+    private PersistentItem persistentData;
 
     void Start()
     {
-        // Acha o jogador pela tag
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
-            player = playerObj.transform;
-
-        // Acha o gerenciador
-        manager = FindFirstObjectByType(typeof(ItemManager)) as ItemManager;
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        manager = ItemManager.Instance;
+        persistentData = GetComponent<PersistentItem>();
     }
 
     void Update()
@@ -32,11 +29,12 @@ public class ItemPick : MonoBehaviour
 
     void CollectItem()
     {
-        // Notifica o gerenciador
         if (manager != null)
             manager.AddItem();
 
-        // Destroi o item
+        if (persistentData != null)
+            persistentData.MarkAsCollected(); // Salva o item como coletado
+
         Destroy(gameObject);
     }
 
