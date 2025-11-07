@@ -1,18 +1,28 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ItemPick : MonoBehaviour
 {
+    public string itemID; // ID único por item
     public float pickupRange = 1.5f;
 
     private Transform player;
     private ItemManager manager;
-    private PersistentItem persistentData;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         manager = ItemManager.Instance;
-        persistentData = GetComponent<PersistentItem>();
+
+        // Se o item já foi coletado, ele desaparece
+        if (manager != null && manager.HasCollected(itemID))
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        // Registra o item no total apenas na primeira vez
+        if (manager != null)
+            manager.RegisterItem(itemID);
     }
 
     void Update()
@@ -22,18 +32,13 @@ public class ItemPick : MonoBehaviour
         float distance = Vector2.Distance(transform.position, player.position);
 
         if (distance <= pickupRange)
-        {
             CollectItem();
-        }
     }
 
     void CollectItem()
     {
         if (manager != null)
-            manager.AddItem();
-
-        if (persistentData != null)
-            persistentData.MarkAsCollected(); // Salva o item como coletado
+            manager.CollectItem(itemID);
 
         Destroy(gameObject);
     }

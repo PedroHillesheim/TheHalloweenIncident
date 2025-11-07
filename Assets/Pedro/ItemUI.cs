@@ -1,24 +1,30 @@
 using TMPro;
+using System.Collections;
 using UnityEngine;
 
 public class ItemUI : MonoBehaviour
 {
-    private TMP_Text textUI;
+    TMP_Text txt;
+
+    void Awake() => txt = GetComponent<TMP_Text>();
 
     void Start()
     {
-        textUI = GetComponent<TMP_Text>();
+        TryRegister();
+    }
 
-        // Tenta conectar com o ItemManager global
+    void TryRegister()
+    {
         if (ItemManager.Instance != null)
-        {
-            // Atualiza a referência do texto
-            ItemManager.Instance.itemCountText = textUI;
-            ItemManager.Instance.UpdateUI();
-        }
+            ItemManager.Instance.RegisterUIText(txt);
         else
-        {
-            Debug.LogWarning("ItemManager não encontrado nesta cena!");
-        }
+            StartCoroutine(TryRegisterNextFrame());
+    }
+
+    IEnumerator TryRegisterNextFrame()
+    {
+        yield return null;
+        if (ItemManager.Instance != null)
+            ItemManager.Instance.RegisterUIText(txt);
     }
 }

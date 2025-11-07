@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
     public Transform[] patrolPoints;
     public float patrolSpeed = 2f;
+    public float waitTimeAtPoint = 2f;
     private int currentPointIndex = 0;
+    private bool movingForward = true;
+    private bool isWaiting = false;
 
     [Header("Perseguição")]
     public float chaseRange = 5f;
@@ -37,13 +41,13 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if (playerDead || player == null) return;
+        if (playerDead || player == null || isWaiting) return;
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
         if (distanceToPlayer <= chaseRange && HasLineOfSight())
             isChasing = true;
-        else if (distanceToPlayer > chaseRange * 1.2f)
+        else if (distanceToPlayer > chaseRange * 1.3f)
             isChasing = false;
 
         if (isChasing)
@@ -57,7 +61,7 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (playerDead) return;
+        if (playerDead || isWaiting) return;
         rb.MovePosition(rb.position + moveDirection * GetCurrentSpeed() * Time.fixedDeltaTime);
     }
 
@@ -74,22 +78,63 @@ public class Enemy : MonoBehaviour
         Vector2 dir = (targetPoint.position - transform.position).normalized;
 
         float dist = Vector2.Distance(transform.position, targetPoint.position);
-        if (dist < 0.2f)
+        if (dist < 0.2f && !isWaiting)
         {
-            currentPointIndex++;
-            if (currentPointIndex >= patrolPoints.Length)
-                currentPointIndex = 0;
+            StartCoroutine(WaitAtPoint());
         }
 
         return dir;
+    }
+
+    IEnumerator WaitAtPoint()
+    {
+        isWaiting = true;
+        rb.linearVelocity = Vector2.zero;
+        yield return new WaitForSeconds(waitTimeAtPoint);
+
+        if (movingForward)
+        {
+            currentPointIndex++;
+            if (currentPointIndex >= patrolPoints.Length)
+            {
+                currentPointIndex = patrolPoints.Length - 2;
+                movingForward = false;
+            }
+        }
+        else
+        {
+            currentPointIndex--;
+            if (currentPointIndex < 0)
+            {
+                currentPointIndex = 1;
+                movingForward = true;
+            }
+        }
+
+        isWaiting = false;
     }
 
     bool HasLineOfSight()
     {
         if (player == null) return false;
 
-        RaycastHit2D hit = Physics2D.Linecast(transform.position, player.position, wallLayer);
-        return hit.collider == null;
+        if (wallLayer == 0)
+            return true;
+
+        Vector2 start = transform.position;
+        Vector2 end = player.position;
+
+        RaycastHit2D[] hits = Physics2D.LinecastAll(start, end);
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider != null && hit.collider.gameObject != gameObject)
+            {
+                if (((1 << hit.collider.gameObject.layer) & wallLayer) != 0)
+                    return false;
+            }
+        }
+
+        return true;
     }
 
     void AttackPlayer()
@@ -97,7 +142,6 @@ public class Enemy : MonoBehaviour
         if (playerDead) return;
         playerDead = true;
 
-        Debug.Log("Inimigo atacou o jogador! GAME OVER!");
         GameOverManager.Instance.ShowGameOver();
     }
 
