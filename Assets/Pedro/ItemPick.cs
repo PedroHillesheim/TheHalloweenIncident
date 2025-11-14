@@ -2,7 +2,7 @@
 
 public class ItemPick : MonoBehaviour
 {
-    public string itemID; // ID único por item
+    public string itemID;
     public float pickupRange = 1.5f;
 
     private Transform player;
@@ -13,39 +13,34 @@ public class ItemPick : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         manager = ItemManager.Instance;
 
-        // Se o item já foi coletado, ele desaparece
-        if (manager != null && manager.HasCollected(itemID))
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        // Registra o item no total apenas na primeira vez
         if (manager != null)
+        {
+            // Se já foi coletado antes, some
+            if (manager.HasCollected(itemID))
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            // Conta item no total
             manager.RegisterItem(itemID);
+        }
     }
 
     void Update()
     {
         if (player == null) return;
 
-        float distance = Vector2.Distance(transform.position, player.position);
-
-        if (distance <= pickupRange)
-            CollectItem();
+        float dist = Vector2.Distance(transform.position, player.position);
+        if (dist <= pickupRange)
+            Collect();
     }
 
-    void CollectItem()
+    void Collect()
     {
         if (manager != null)
             manager.CollectItem(itemID);
 
         Destroy(gameObject);
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, pickupRange);
     }
 }

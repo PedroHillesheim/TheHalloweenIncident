@@ -6,10 +6,14 @@ public class ItemUI : MonoBehaviour
 {
     TMP_Text txt;
 
-    void Awake() => txt = GetComponent<TMP_Text>();
+    void Awake() 
+    {
+        txt = GetComponent<TMP_Text>(); 
+    }
 
     void Start()
     {
+        ItemManager.Instance.RegisterUIText(txt);
         TryRegister();
     }
 

@@ -1,41 +1,73 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class ItemManager : MonoBehaviour
 {
-    public int totalItems = 0;
+    public static ItemManager Instance;
+
+    [Header("Contagem")]
     public int collectedItems = 0;
+    public int totalItems = 4; // 🔥 TOTAL FIXO
 
-    [Header("Referências")]
-    public UnityEvent victoryPanel;
-    public TMP_Text itemCountText;
+    private List<string> collectedIDs = new List<string>();
+    private List<TMP_Text> registeredTexts = new List<TMP_Text>();
 
-    void Start()
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void RegisterUIText(TMP_Text txt)
+    {
+        if (!registeredTexts.Contains(txt))
+            registeredTexts.Add(txt);
+
+        UpdateUI();
+    }
+
+    // NÃO REGISTRA MAIS ITEMS — TOTAL É FIXO
+    public void RegisterItem(string id)
+    {
+        // deixa vazio propositalmente
+    }
+
+    public void CollectItem(string id)
+    {
+        if (!collectedIDs.Contains(id))
+        {
+            collectedIDs.Add(id);
+            collectedItems++;
+            UpdateUI();
+        }
+    }
+
+    public bool HasCollected(string id)
+    {
+        return collectedIDs.Contains(id);
+    }
+
+    public void ResetProgress()
     {
         collectedItems = 0;
-        if (Time.timeScale == 0f)
-            Time.timeScale = 1f;
-    }
-
-    public void AddItem()
-    {
-        collectedItems++;
+        collectedIDs.Clear();
         UpdateUI();
-
-        if (collectedItems >= totalItems)
-            WinGame();
     }
 
-    void UpdateUI()
+    private void UpdateUI()
     {
-        if (itemCountText != null)
-            itemCountText.text = "Itens: " + collectedItems + " / " + totalItems;
-    }
-
-    void WinGame()
-    {
-        victoryPanel.Invoke();
-        Time.timeScale = 0f;
+        foreach (var txt in registeredTexts)
+        {
+            txt.text = collectedItems + " / " + totalItems;
+        }
     }
 }
