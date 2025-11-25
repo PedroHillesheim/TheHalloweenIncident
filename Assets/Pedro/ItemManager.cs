@@ -9,7 +9,7 @@ public class ItemManager : MonoBehaviour
 
     [Header("Contagem")]
     public int collectedItems = 0;
-    public int totalItems = 4; // 🔥 TOTAL FIXO
+    public int totalItems = 4; // total fixo
 
     private List<string> collectedIDs = new List<string>();
     private List<TMP_Text> registeredTexts = new List<TMP_Text>();
@@ -33,12 +33,6 @@ public class ItemManager : MonoBehaviour
             registeredTexts.Add(txt);
 
         UpdateUI();
-    }
-
-    // NÃO REGISTRA MAIS ITEMS — TOTAL É FIXO
-    public void RegisterItem(string id)
-    {
-        // deixa vazio propositalmente
     }
 
     public void CollectItem(string id)

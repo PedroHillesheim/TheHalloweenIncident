@@ -14,6 +14,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SantuarioFimdeJogo.unity
     guid: a27ac41fc302c0346a9da107ff1b4932
+  - enabled: 1
+    path: Assets/Scenes/Sala.unity
+    guid: 4cb0a0e48241ed449a55d8cf2cc3cec4
+  - enabled: 1
+    path: Assets/Scenes/TelaDeVitoria.unity
+    guid: 3ef286fe91df069498030f426a780535
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

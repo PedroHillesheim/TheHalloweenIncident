@@ -6,36 +6,25 @@ public class GameOverManager : MonoBehaviour
     public static GameOverManager Instance;
     public GameObject gameOverPanel;
 
-    private bool gameOver = false;
-
     void Awake()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
-    }
-
-    void Start()
-    {
-        if (gameOverPanel != null)
-            gameOverPanel.SetActive(false);
+        Instance = this;
     }
 
     public void ShowGameOver()
     {
-        if (gameOver) return;
-        gameOver = true;
-
-        if (gameOverPanel != null)
-            gameOverPanel.SetActive(true);
-
+        gameOverPanel.SetActive(true);
         Time.timeScale = 0f;
     }
 
-    public void RestartGame()
+    public void TryAgain()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        // 🔥 RESET TOTAL
+        ItemManager.Instance.ResetProgress();
+
+        // 🔥 RECARREGA para trazer os itens de volta
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

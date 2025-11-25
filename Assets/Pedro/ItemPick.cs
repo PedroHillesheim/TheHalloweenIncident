@@ -2,45 +2,26 @@
 
 public class ItemPick : MonoBehaviour
 {
-    public string itemID;
-    public float pickupRange = 1.5f;
-
-    private Transform player;
-    private ItemManager manager;
+    public string itemID; // cada item deve ter um ID único
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        manager = ItemManager.Instance;
+        // Se já coletado antes, esconde o item
+        if (ItemManager.Instance.HasCollected(itemID))
+            gameObject.SetActive(false);
+        else
+            gameObject.SetActive(true);
+    }
 
-        if (manager != null)
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
         {
-            // Se já foi coletado antes, some
-            if (manager.HasCollected(itemID))
+            if (!ItemManager.Instance.HasCollected(itemID))
             {
-                Destroy(gameObject);
-                return;
+                ItemManager.Instance.CollectItem(itemID);
+                gameObject.SetActive(false);
             }
-
-            // Conta item no total
-            manager.RegisterItem(itemID);
         }
-    }
-
-    void Update()
-    {
-        if (player == null) return;
-
-        float dist = Vector2.Distance(transform.position, player.position);
-        if (dist <= pickupRange)
-            Collect();
-    }
-
-    void Collect()
-    {
-        if (manager != null)
-            manager.CollectItem(itemID);
-
-        Destroy(gameObject);
     }
 }
