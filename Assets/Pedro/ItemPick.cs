@@ -1,27 +1,33 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ItemPick : MonoBehaviour
 {
-    public string itemID; // cada item deve ter um ID único
-
-    void Start()
+    public static int collectedItems = 0;
+    public int totalItems = 4;
+    public GameObject porta;
+    public TMP_Text collectedItemstotal;
+    private void Start()
     {
-        // Se já coletado antes, esconde o item
-        if (ItemManager.Instance.HasCollected(itemID))
-            gameObject.SetActive(false);
-        else
-            gameObject.SetActive(true);
+        collectedItemstotal.text = collectedItems + "/" + totalItems;
     }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            if (!ItemManager.Instance.HasCollected(itemID))
+            collectedItems++;
+            gameObject.SetActive(false);
+            collectedItemstotal.text = collectedItems + "/" + totalItems;
+            if (collectedItems == totalItems && porta != null)
             {
-                ItemManager.Instance.CollectItem(itemID);
-                gameObject.SetActive(false);
+                Destroy(porta);
             }
         }
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        collectedItems = 0;
     }
 }

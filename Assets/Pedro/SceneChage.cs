@@ -1,13 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UiCode : MonoBehaviour
+public class SceneChage : MonoBehaviour
 {
-    public void SceneChangeR(string sceneName)
+    public void StartGame(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
-
     public void CloseGame()
     {
         Application.Quit();

@@ -10,20 +10,16 @@ public class Enemy : MonoBehaviour
     private int currentPointIndex = 0;
     private bool movingForward = true;
     private bool isWaiting = false;
-
-    [Header("Perseguição")]
     public float chaseRange = 5f;
     public float chaseSpeed = 4f;
     public float attackRange = 1f;
-
-    [Header("Referências")]
     public Transform player;
     public LayerMask wallLayer;
-
     private Rigidbody2D rb;
     private bool isChasing = false;
     private Vector2 moveDirection;
     private bool playerDead = false;
+    public GameObject loseScreen;
 
     void Start()
     {
@@ -141,8 +137,7 @@ public class Enemy : MonoBehaviour
     {
         if (playerDead) return;
         playerDead = true;
-
-        GameOverManager.Instance.ShowGameOver();
+        loseScreen.SetActive(true);
     }
 
     void OnDrawGizmosSelected()
