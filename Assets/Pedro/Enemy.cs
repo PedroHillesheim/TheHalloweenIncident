@@ -78,16 +78,13 @@ public class Enemy : MonoBehaviour
         {
             StartCoroutine(WaitAtPoint());
         }
-
         return dir;
     }
-
     IEnumerator WaitAtPoint()
     {
         isWaiting = true;
         rb.linearVelocity = Vector2.zero;
         yield return new WaitForSeconds(waitTimeAtPoint);
-
         if (movingForward)
         {
             currentPointIndex++;
@@ -106,17 +103,20 @@ public class Enemy : MonoBehaviour
                 movingForward = true;
             }
         }
-
         isWaiting = false;
     }
 
     bool HasLineOfSight()
     {
-        if (player == null) return false;
+        if (player == null)
+        {
+            return false;
+        }
 
-        if (wallLayer == 0)
+            if (wallLayer == 0)
+        {
             return true;
-
+        }
         Vector2 start = transform.position;
         Vector2 end = player.position;
 
@@ -126,7 +126,10 @@ public class Enemy : MonoBehaviour
             if (hit.collider != null && hit.collider.gameObject != gameObject)
             {
                 if (((1 << hit.collider.gameObject.layer) & wallLayer) != 0)
+                {
                     return false;
+                }
+                    
             }
         }
 
@@ -144,7 +147,6 @@ public class Enemy : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, chaseRange);
-
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
