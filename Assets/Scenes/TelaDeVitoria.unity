@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Voc\xEA voltei em seguran\xE7a para sua casa, mas sempre se lembrar\xE1
+  m_text: "Voc\xEA voltou em seguran\xE7a para sua casa, mas sempre se lembrar\xE1
     do que viu nesse dia, voc\xEA n\xE3o contou a ninguem j\xE1 que ninguem acreditaria
     em voc\xEA, afinal voc\xEA \xE9 apenas uma crian\xE7a."
   m_isRightToLeft: 0
