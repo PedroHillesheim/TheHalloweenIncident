@@ -176,9 +176,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Voc\xEA voltou em seguran\xE7a para sua casa, mas sempre se lembrar\xE1
-    do que viu nesse dia, voc\xEA n\xE3o contou a ninguem j\xE1 que ninguem acreditaria
-    em voc\xEA, afinal voc\xEA \xE9 apenas uma crian\xE7a."
+  m_text: "Voc\xEA voltou em seguran\xE7a para casa, mas sempre se lembrar\xE1 do
+    que viu neste dia. Voc\xEA n\xE3o contou a ningu\xE9m,  j\xE1 que ningu\xE9m
+    acreditaria em voc\xEA, afinal, voc\xEA \xE9 apenas uma crian\xE7a."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -554,7 +554,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Voc\xEA fugiu!!"
+  m_text: "Voc\xEA fugiu!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
