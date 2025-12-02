@@ -9,23 +9,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Title.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 48b8e3018dd717b4c84ae36d9bef43da
+  - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: 0d1c64b80e6c05c40853f8e4f28320c5
-  - enabled: 1
-    path: Assets/Scenes/SantuarioFimdeJogo.unity
-    guid: a27ac41fc302c0346a9da107ff1b4932
-  - enabled: 1
-    path: Assets/Scenes/Sala.unity
-    guid: 4cb0a0e48241ed449a55d8cf2cc3cec4
   - enabled: 1
     path: Assets/Scenes/TelaDeVitoria.unity
     guid: 3ef286fe91df069498030f426a780535
   - enabled: 1
-    path: Assets/Scenes/Credits.unity
-    guid: 48b8e3018dd717b4c84ae36d9bef43da
-  - enabled: 1
-    path: Assets/Scenes/Finish.unity
-    guid: 16f70730985a502489dbf4fca859f8a2
+    path: Assets/Scenes/Sala.unity
+    guid: 4cb0a0e48241ed449a55d8cf2cc3cec4
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

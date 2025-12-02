@@ -4222,7 +4222,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.2000122, y: -0.94999695}
+  m_AnchoredPosition: {x: 1.2000122, y: -0.9500122}
   m_SizeDelta: {x: 24.07, y: 23.57}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1622443704
@@ -4699,7 +4699,7 @@ BoxCollider2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: -10
+  m_LayerOverridePriority: -2147483648
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -4774,7 +4774,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -100
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0.67058825, b: 0.08235294, a: 1}
   m_FlipX: 0
